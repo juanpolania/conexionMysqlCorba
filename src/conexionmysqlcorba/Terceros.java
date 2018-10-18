@@ -75,6 +75,8 @@ public class Terceros extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnConsultar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,6 +100,11 @@ public class Terceros extends javax.swing.JFrame {
         jLabel3.setText("Telefono");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
 
@@ -115,6 +122,11 @@ public class Terceros extends javax.swing.JFrame {
                 btnConsultarActionPerformed(evt);
             }
         });
+
+        jLabel5.setText("Id");
+
+        txtId.setEditable(false);
+        txtId.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,10 +155,15 @@ public class Terceros extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addComponent(btnConsultar)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jLabel4))
-                    .addComponent(btnConsultar))
+                        .addComponent(jLabel5)
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtId)
+                                .addGap(42, 42, 42)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -158,6 +175,10 @@ public class Terceros extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jLabel4)
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -188,6 +209,32 @@ public class Terceros extends javax.swing.JFrame {
         Tercero objTercero = new Tercero();
         JOptionPane.showMessageDialog(null, objTercero.consultarTercero(1));
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        Tercero objTercero = new Tercero();
+        String nombres = txtNombres.getText();
+        String apellidos = txtApellidos.getText();
+        String telefono = txtTelefono.getText();
+        int id = Integer.parseInt(txtId.getText());
+        
+        if(id == 0){
+            boolean resultado = objTercero.insertarTercero(nombres, apellidos, telefono);
+            if(resultado == true){
+                JOptionPane.showMessageDialog(null, "Se inserto un nuevo registro.");
+                cargarTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al insertar.");
+            }
+        }else{
+            boolean resultado = objTercero.actualizarTercero(id, nombres, apellidos, telefono);
+            if(resultado == true){
+                JOptionPane.showMessageDialog(null, "Se actualizó el registro.");
+                cargarTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al actualizar.");
+            }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,11 +280,13 @@ public class Terceros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField txtApellidos;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables

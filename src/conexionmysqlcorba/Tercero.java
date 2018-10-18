@@ -9,17 +9,62 @@ public class Tercero extends TerceroPOA {
 
     @Override
     public boolean insertarTercero(String nombre, String apellido, String telefono) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean resultado = false;
+        try {
+            String sql = "insert into terceros (nombres,apellidos,telefono) values ('"+nombre+"','"+apellido+"','"+telefono+"')";
+            objConec.conectar();
+            Statement st = objConec.conex.createStatement();
+            int valor = st.executeUpdate(sql);
+            if(valor>0){
+                resultado = true;
+            }
+            //Se cierran las conexiones
+            objConec.conex.close();
+            st.close();
+            
+        } catch (Exception e) {
+           JOptionPane.showMessageDialog(null, "Error al insertar. "+e.getMessage());
+        }        
+        return resultado;
     }
 
     @Override
     public boolean actualizarTercero(int id, String nombre, String apellido, String telefono) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean resultado = false;
+        try {
+            String sql = "update terceros set nombres = '"+nombre+"', apellidos = '"+apellido+"', telefono = '"+telefono+
+                    "' where id = '"+id+"' ";
+            Statement st = objConec.conex.createStatement();
+            int valor = st.executeUpdate(sql);
+            if(valor>0){
+                resultado = true;
+            }
+            //Se cierran las conexiones.
+            objConec.conex.close();
+            st.close();
+        } catch (Exception e) {
+           JOptionPane.showMessageDialog(null, "Error al actualizar. "+e.getMessage());
+        }        
+        return resultado;
     }
 
     @Override
     public boolean eliminarTercero(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean resultado = false;
+        try {
+            String sql = "Delete from terceros where id = "+id;
+            Statement st = objConec.conex.createStatement();
+            int valor = st.executeUpdate(sql);
+            if(valor>0){
+                resultado = true;
+            }
+            //Se cierran las conexiones.
+            objConec.conex.close();
+            st.close();
+        } catch (Exception e) {
+           JOptionPane.showMessageDialog(null, "Error al eliminar. "+e.getMessage());
+        }        
+        return resultado;
     }
 
     @Override
